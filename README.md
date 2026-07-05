@@ -21,9 +21,9 @@
 - 起動手順（開発 / ローカルPC・実機ウィンドウ確認）:
 
   ```bash
-  # 前提: ollama を起動し、推奨モデル（既定 Gemma 3 4B）を導入済みであること
+  # 前提: ollama を起動し、推奨モデル（既定 Gemma 3 1B）を導入済みであること
   ollama serve
-  ollama pull gemma3:4b
+  ollama pull gemma3:1b
   # アプリ（開発モード）
   npm install
   npm run tauri dev

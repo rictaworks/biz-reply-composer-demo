@@ -43,7 +43,7 @@ const MASTERS: Masters = {
     { id: 4, code: "concrete", name: "具体的に" },
   ],
   models: [
-    { id: 1, code: "gemma3:4b", name: "Gemma 3 4B", isDefault: true, minRamGb: 4, note: null },
+    { id: 1, code: "gemma3:1b", name: "Gemma 3 1B", isDefault: true, minRamGb: 2, note: null },
     { id: 2, code: "llama3-elyza-jp:8b", name: "Llama-3-ELYZA-JP-8B", isDefault: false, minRamGb: 8, note: null },
     { id: 3, code: "phi4-mini", name: "Phi-4 mini", isDefault: false, minRamGb: 4, note: null },
   ],
@@ -99,7 +99,7 @@ export const mockBackend = {
     return {
       ollamaRunning: true,
       modelInstalled: true,
-      model: "gemma3:4b",
+      model: "gemma3:1b",
       checkedAt: DEMO_TIMESTAMP,
     };
   },

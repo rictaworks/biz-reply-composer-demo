@@ -65,7 +65,7 @@ mod tests {
         Settings {
             env: crate::config::AppEnv::Development,
             ollama_host: "http://127.0.0.1:11434".into(),
-            default_model: "gemma3:4b".into(),
+            default_model: "gemma3:1b".into(),
             generation_timeout_ms: 30_000,
             min_chars: 10,
             max_chars: 8_000,

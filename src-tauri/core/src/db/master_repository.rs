@@ -66,8 +66,8 @@ mod tests {
         assert_eq!(m.categories.len(), 8);
         assert_eq!(m.refine_presets.len(), 4);
         assert_eq!(m.models.len(), 3);
-        // 既定モデルは Gemma 3 4B（§1.3）。
+        // 既定モデルは Gemma 3 1B（§1.3）。
         let default = m.models.iter().find(|x| x.is_default).unwrap();
-        assert_eq!(default.code, "gemma3:4b");
+        assert_eq!(default.code, "gemma3:1b");
     }
 }
