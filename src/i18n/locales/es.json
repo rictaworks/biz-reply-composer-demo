@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "Compositor de respuestas profesionales",
+    "tagline": "Demo de IA de escritorio que redacta borradores de respuesta según el contexto"
+  },
+  "nav": {
+    "main": "Redactar",
+    "history": "Historial",
+    "health": "Comprobación",
+    "settings": "Ajustes"
+  },
+  "main": {
+    "title": "Redactar una respuesta",
+    "inputLabel": "Cuerpo del correo recibido",
+    "inputPlaceholder": "Pegue el cuerpo del correo recibido (10 a 8000 caracteres)",
+    "charCount": "{{count}} caracteres",
+    "policyLabel": "Política de respuesta",
+    "toneLabel": "Tono",
+    "extraLabel": "Instrucciones adicionales (opcional)",
+    "extraPlaceholder": "p. ej.: quiero confirmar la fecha límite",
+    "generate": "Generar respuesta",
+    "generating": "Generando…",
+    "resultTitle": "Borrador de respuesta generado",
+    "contextTitle": "Contexto extraído",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "refineTitle": "Ajuste con un toque"
+  },
+  "context": {
+    "category": "Categoría",
+    "requests": "Solicitudes",
+    "deadline": "Fecha límite",
+    "sentiment": "Tono del remitente",
+    "none": "(ninguno)"
+  },
+  "history": {
+    "title": "Historial de generación",
+    "empty": "Aún no hay historial de generación en esta sesión.",
+    "createdAt": "Creado el",
+    "copy": "Copiar"
+  },
+  "health": {
+    "title": "Comprobación de estado",
+    "description": "Comprueba que ollama esté en ejecución y que el modelo recomendado esté instalado. De lo contrario, se trata como error sin generación alternativa.",
+    "check": "Volver a comprobar",
+    "checking": "Comprobando…",
+    "ollama": "ollama en ejecución",
+    "model": "Modelo recomendado instalado",
+    "ok": "Correcto",
+    "ng": "Error",
+    "unknown": "Sin comprobar"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "model": "Modelo en uso",
+    "language": "Idioma de la interfaz",
+    "modelNote": "Descargue los modelos con antelación fuera de la aplicación (sin descarga integrada)."
+  },
+  "policy": {
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "hold": "En espera",
+    "question": "Hacer una pregunta"
+  },
+  "tone": {
+    "formal": "Formal",
+    "standard": "Estándar",
+    "casual": "Informal"
+  },
+  "refine": {
+    "politer": "Más cortés",
+    "shorter": "Más breve",
+    "softer": "Más suave",
+    "concrete": "Más concreto"
+  },
+  "category": {
+    "request": "Solicitud",
+    "reminder": "Recordatorio",
+    "apology": "Disculpa",
+    "scheduling": "Programación",
+    "inquiry": "Consulta",
+    "gratitude": "Agradecimiento",
+    "complaint": "Reclamación",
+    "other": "Otro"
+  },
+  "error": {
+    "empty_input": "Introduzca el cuerpo del correo.",
+    "too_short": "El cuerpo debe tener al menos 10 caracteres.",
+    "too_long": "El cuerpo es demasiado largo; se resumirá antes de procesarlo.",
+    "ollama_down": "ollama no está en ejecución. Inícielo e inténtelo de nuevo.",
+    "model_missing": "El modelo recomendado no está instalado. Instálelo e inténtelo de nuevo.",
+    "timeout": "La generación agotó el tiempo de espera. Inténtelo de nuevo.",
+    "structure_incomplete": "La estructura de la respuesta está parcialmente incompleta (se muestra con una advertencia).",
+    "generic": "Se produjo un error.",
+    "retry": "Reintentar"
+  }
+}
