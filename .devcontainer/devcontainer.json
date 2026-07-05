@@ -1,0 +1,70 @@
+{
+  // ============================================================
+  //  .devcontainer/devcontainer.json
+  //  Claude Code + Cloudflare / Vercel / Railway をブラウザなしで操作する
+  //  GitHub Codespaces 用の開発コンテナ定義
+  // ============================================================
+
+  "name": "claude-code-deploy",
+
+  // Node 22 ベース（npm 版 Claude Code と各 CLI が要求する版に対応）
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+
+  // 追加機能：GitHub CLI（gh）を同梱
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  // ------------------------------------------------------------
+  //  Secrets の宣言（プラットフォーム用トークンのみ）
+  //  実際の値はここには書かず、GitHub の
+  //  Settings > Codespaces secrets（リポジトリ or アカウント）に登録する。
+  //  登録された値は Codespace 起動時に環境変数として自動注入される。
+  //
+  //  ※ Claude Code はサブスク（Pro/Max）のブラウザ認証で使うため、
+  //     ANTHROPIC_API_KEY は「あえて設定しない」。
+  //     設定するとサブスクではなく従量課金の API ルートになってしまう。
+  //     認証は初回に `claude` を起動したときのログインフローで行う。
+  // ------------------------------------------------------------
+  "secrets": {
+    "CLOUDFLARE_API_TOKEN": {
+      "description": "Cloudflare API トークン（Workers/Pages/DNS 等の操作権限を付与）"
+    },
+    "VERCEL_TOKEN": {
+      "description": "Vercel アクセストークン（vercel.com/account/tokens で発行）"
+    },
+    "RAILWAY_TOKEN": {
+      "description": "Railway トークン（プロジェクト or アカウントトークン）"
+    }
+  },
+
+  // ------------------------------------------------------------
+  //  コンテナ作成後に一度だけ実行：ツール類を導入
+  // ------------------------------------------------------------
+  "postCreateCommand": "curl -fsSL https://claude.ai/install.sh | bash && npm i -g wrangler vercel @railway/cli",
+
+  // ------------------------------------------------------------
+  //  非対話デプロイを安定させるための環境変数
+  //  CI=true で各 CLI が確認プロンプトを出さなくなる
+  // ------------------------------------------------------------
+  "containerEnv": {
+    "CI": "true"
+  },
+
+  // ~/.local/bin（ネイティブインストーラの claude 配置先）を PATH に追加
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/node/.local/bin"
+  },
+
+  // VS Code / Codespaces エディタ側の設定（任意）
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code"
+      ]
+    }
+  },
+
+  // 起動時に各ツールが認識できているか確認（任意・失敗しても起動は継続）
+  "postStartCommand": "claude --version || true"
+}
