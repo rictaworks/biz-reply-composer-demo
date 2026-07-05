@@ -1,0 +1,113 @@
+# ==========================================================================
+# biz-reply-composer-demo (Rust + Tauri / React + TypeScript / SQLite / ollama)
+# 文字コード UTF-8 / 時刻 JST
+# ==========================================================================
+
+# --- シークレット・環境変数（重要: 平文コミット禁止 / CLAUDE.md 安全ルール） ---
+.env
+.env.*
+!.env.example
+*.key
+config/master.key
+*.pem
+*.p12
+*.keystore
+secrets/
+
+# --- Claude Code 個人設定（共有しない） ---
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/*.tmp.*
+
+# ==========================================================================
+# Node / React / TypeScript (フロント)
+# ==========================================================================
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+*.local
+
+# ログ
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# テスト・カバレッジ
+coverage/
+.nyc_output/
+
+# TypeScript ビルド情報
+*.tsbuildinfo
+
+# ==========================================================================
+# Rust / Cargo / Tauri (コア)
+# ==========================================================================
+# ルート or src-tauri/ 配下いずれの target/ も無視
+target/
+**/target/
+# Cargo.lock はアプリ（バイナリ）ではコミットするため無視しない
+# （ライブラリ化した場合のみ運用で除外を検討）
+
+# Tauri ビルド成果物
+src-tauri/gen/
+src-tauri/WixTools/
+
+# ==========================================================================
+# SQLite (ローカルDB。デモは端末ローカル完結のためコミットしない)
+# ==========================================================================
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# ==========================================================================
+# OS / エディタ
+# ==========================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ==========================================================================
+# その他
+# ==========================================================================
+tmp/
+.cache/
+
+# ==========================================================================
+# 明示除外（直下の項目を個別列挙。CLAUDE.md / README.md / SPEC/ のみ追跡）
+# ==========================================================================
+/.claude/
+/.devcontainer/
+/.env
+/app-ui/
+/biz-reply-composer-demo_instruction.md
+/CLIENT/
+/DC.md
+/DEBUG/
+/DELETE/
+/ENV/
+/QA.md
+/QC10.md
+/TASKS/
+/TM.md
+/WORK/
