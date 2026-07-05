@@ -100,7 +100,6 @@ tmp/
 /.devcontainer/
 /.env
 /app-ui/
-/biz-reply-composer-demo_instruction.md
 /CLIENT/
 /DC.md
 /DEBUG/
