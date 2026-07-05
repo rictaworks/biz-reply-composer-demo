@@ -32,8 +32,11 @@ INSERT OR IGNORE INTO refine_presets (refine_preset_id, code, name, sort_order) 
     (3, 'softer',   '柔らかく',     3),
     (4, 'concrete', '具体的に',     4);
 
--- 推奨モデルマスタ 3件（§1.3 非中国製のみ / 既定=Gemma 3 1B）
-INSERT OR IGNORE INTO recommended_models (model_id, code, name, is_default, min_ram_gb, note, sort_order) VALUES
+-- 推奨モデルマスタ 3件（§1.3 非中国製のみ / 既定=Gemma 3 1B）。
+-- 他の3マスタと異なりOR REPLACEで上書きする：recommended_modelsはFK被参照がなく、
+-- IGNOREのままだと過去バージョンでインストール済みの端末でmodel_id主キー衝突により
+-- 新しい既定モデル値（例: gemma3:4b→1bの変更）が反映されず設定画面に古い値が残るため。
+INSERT OR REPLACE INTO recommended_models (model_id, code, name, is_default, min_ram_gb, note, sort_order) VALUES
     (1, 'gemma3:1b',           'Gemma 3 1B',            1, 2, 'Google製。実効空きメモリ800MB〜1.7GB程度のCPU推論機でも現実的に完走する（既定）。', 1),
     (2, 'llama3-elyza-jp:8b',  'Llama-3-ELYZA-JP-8B',   0, 8, 'ELYZA製（Metaベース）。日本語特化。メモリ8GB以上向け。',                    2),
     (3, 'phi4-mini',           'Phi-4 mini',            0, 4, 'Microsoft製。低スペック環境向けフォールバック候補。',                        3);
