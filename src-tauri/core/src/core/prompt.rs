@@ -67,6 +67,7 @@ pub fn build_generation(
 【言語】{lang} で書く（受信メールと同一言語）。\n\
 【構成】必ず4部構成にする: (1)宛名 (2)挨拶 (3)本文 (4)結び。各部を改行で分ける。\n\
 【宛名・署名】宛名は必ず「{{{{相手名}}}} 様」、署名は必ず「{{{{自分の署名}}}}」というトークンをそのまま使う。実在の氏名・会社名・固有名詞を捏造しない。\n\
+【出力形式】前置きの挨拶・確認応答・説明文（「承知しました」「以下がドラフトです」等）を一切付けない。Markdownのコードフェンス（```）や見出しも付けない。返信文ドラフトの本文だけをそのまま出力する。\n\
 【方針】{policy}\n\
 【トーン】{tone}\n\
 {extra}\
@@ -99,7 +100,7 @@ pub fn build_refine(parent_body: &str, preset_code: &str, lang: &str) -> String 
         "次の返信文ドラフトを、意図と4部構成、および {{{{相手名}}}} / {{{{自分の署名}}}} トークンを保ったまま調整してください。\n\
 【言語】{lang}\n\
 【調整方針】{instruction}\n\
-調整後の返信文ドラフトのみを出力する。\n\
+【出力形式】前置きの説明文やMarkdownのコードフェンス（```）を付けず、調整後の返信文ドラフトの本文だけを出力する。\n\
 --- 元のドラフト ---\n{parent}\n--- ここまで ---",
         lang = lang,
         instruction = refine_instruction(preset_code),
@@ -127,6 +128,7 @@ mod tests {
         assert!(p.contains("{{相手名}}"));
         assert!(p.contains("{{自分の署名}}"));
         assert!(p.contains("捏造しない"));
+        assert!(p.contains("コードフェンス"));
     }
 
     #[test]
