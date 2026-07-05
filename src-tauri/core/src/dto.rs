@@ -34,8 +34,10 @@ pub struct Masters {
 #[serde(rename_all = "camelCase")]
 pub struct MailContext {
     pub category: String,
+    #[serde(default)]
     pub requests: Vec<String>,
     pub deadline: Option<String>,
+    #[serde(default)]
     pub sender_sentiment: String,
 }
 
