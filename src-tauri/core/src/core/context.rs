@@ -64,4 +64,14 @@ mod tests {
         let raw = "{\"category\":\"unknown_x\",\"requests\":[],\"deadline\":null,\"senderSentiment\":\"neutral\"}";
         assert_eq!(parse_context(raw).unwrap().category, "other");
     }
+
+    #[test]
+    #[allow(non_snake_case)]
+    fn senderSentimentとrequestsが欠けていても既定値で解析できる() {
+        let raw = "{\"category\":\"scheduling\",\"deadline\":null}";
+        let ctx = parse_context(raw).unwrap();
+        assert_eq!(ctx.category, "scheduling");
+        assert!(ctx.requests.is_empty());
+        assert_eq!(ctx.sender_sentiment, "");
+    }
 }

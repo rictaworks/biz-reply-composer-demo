@@ -37,7 +37,7 @@ impl Settings {
         Settings {
             env: AppEnv::from_env(),
             ollama_host: env_or("OLLAMA_HOST", "http://127.0.0.1:11434"),
-            default_model: env_or("OLLAMA_DEFAULT_MODEL", "gemma3:4b"),
+            default_model: env_or("OLLAMA_DEFAULT_MODEL", "gemma3:1b"),
             generation_timeout_ms: env_or("GENERATION_TIMEOUT_MS", "30000")
                 .parse()
                 .unwrap_or(30_000),
