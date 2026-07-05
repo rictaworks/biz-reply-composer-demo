@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "Business Reply Composer",
+    "tagline": "Desktop AI demo that drafts context-aware email replies"
+  },
+  "nav": {
+    "main": "Compose",
+    "history": "History",
+    "health": "Health check",
+    "settings": "Settings"
+  },
+  "main": {
+    "title": "Compose a reply",
+    "inputLabel": "Received email body",
+    "inputPlaceholder": "Paste the received email body (10–8,000 characters)",
+    "charCount": "{{count}} characters",
+    "policyLabel": "Reply policy",
+    "toneLabel": "Tone",
+    "extraLabel": "Additional instructions (optional)",
+    "extraPlaceholder": "e.g. I want to confirm the deadline",
+    "generate": "Generate reply",
+    "generating": "Generating…",
+    "resultTitle": "Generated reply draft",
+    "contextTitle": "Extracted context",
+    "copy": "Copy",
+    "copied": "Copied",
+    "refineTitle": "One-tap refinement"
+  },
+  "context": {
+    "category": "Category",
+    "requests": "Requests",
+    "deadline": "Deadline",
+    "sentiment": "Sender sentiment",
+    "none": "(none)"
+  },
+  "history": {
+    "title": "Generation history",
+    "empty": "No generation history in this session yet.",
+    "createdAt": "Created at",
+    "copy": "Copy"
+  },
+  "health": {
+    "title": "Health check",
+    "description": "Checks that ollama is running and the recommended model is installed. If not, it is treated as an error with no fallback generation.",
+    "check": "Re-check",
+    "checking": "Checking…",
+    "ollama": "ollama running",
+    "model": "Recommended model installed",
+    "ok": "OK",
+    "ng": "Error",
+    "unknown": "Unknown"
+  },
+  "settings": {
+    "title": "Settings",
+    "model": "Model in use",
+    "language": "Display language",
+    "modelNote": "Download models outside the app in advance (no in-app download)."
+  },
+  "policy": {
+    "accept": "Accept",
+    "decline": "Decline",
+    "hold": "Hold",
+    "question": "Ask a question"
+  },
+  "tone": {
+    "formal": "Formal",
+    "standard": "Standard",
+    "casual": "Casual"
+  },
+  "refine": {
+    "politer": "More polite",
+    "shorter": "Shorter",
+    "softer": "Softer",
+    "concrete": "More concrete"
+  },
+  "category": {
+    "request": "Request",
+    "reminder": "Reminder",
+    "apology": "Apology",
+    "scheduling": "Scheduling",
+    "inquiry": "Inquiry",
+    "gratitude": "Gratitude",
+    "complaint": "Complaint",
+    "other": "Other"
+  },
+  "error": {
+    "empty_input": "Please enter the email body.",
+    "too_short": "The body must be at least 10 characters.",
+    "too_long": "The body is too long; it will be summarized before processing.",
+    "ollama_down": "ollama is not running. Please start it and try again.",
+    "model_missing": "The recommended model is not installed. Install it and try again.",
+    "timeout": "Generation timed out. Please try again.",
+    "structure_incomplete": "The reply structure is partly incomplete (shown with a warning).",
+    "generic": "An error occurred.",
+    "retry": "Retry"
+  }
+}

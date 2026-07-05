@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "ビジネス返信文コンポーザー",
+    "tagline": "文脈に合わせて返信文ドラフトを生成するデスクトップAIデモ"
+  },
+  "nav": {
+    "main": "作成",
+    "history": "履歴",
+    "health": "ヘルスチェック",
+    "settings": "設定"
+  },
+  "main": {
+    "title": "返信文を作成",
+    "inputLabel": "受信メール本文",
+    "inputPlaceholder": "受信したメール本文を貼り付けてください（10〜8,000字）",
+    "charCount": "{{count}} 文字",
+    "policyLabel": "返信方針",
+    "toneLabel": "トーン",
+    "extraLabel": "追加指示（任意）",
+    "extraPlaceholder": "例: 期日について確認したい など",
+    "generate": "返信文を生成",
+    "generating": "生成中…",
+    "resultTitle": "生成された返信文ドラフト",
+    "contextTitle": "抽出された文脈",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "refineTitle": "ワンタップ微調整"
+  },
+  "context": {
+    "category": "用件カテゴリ",
+    "requests": "要求事項",
+    "deadline": "期日",
+    "sentiment": "相手の感情トーン",
+    "none": "（なし）"
+  },
+  "history": {
+    "title": "生成履歴",
+    "empty": "このセッションの生成履歴はまだありません。",
+    "createdAt": "作成日時",
+    "copy": "コピー"
+  },
+  "health": {
+    "title": "ヘルスチェック",
+    "description": "ollama の稼働と推奨モデルの導入状況を確認します。未起動・未導入はエラーとして扱い、代替生成は行いません。",
+    "check": "再チェック",
+    "checking": "確認中…",
+    "ollama": "ollama 稼働",
+    "model": "推奨モデル導入",
+    "ok": "正常",
+    "ng": "異常",
+    "unknown": "未確認"
+  },
+  "settings": {
+    "title": "設定",
+    "model": "使用モデル",
+    "language": "表示言語",
+    "modelNote": "モデルのダウンロードはアプリ外で事前に行ってください（アプリ内DLなし）。"
+  },
+  "policy": {
+    "accept": "承諾",
+    "decline": "辞退",
+    "hold": "保留",
+    "question": "追加質問"
+  },
+  "tone": {
+    "formal": "フォーマル",
+    "standard": "標準",
+    "casual": "カジュアル"
+  },
+  "refine": {
+    "politer": "もっと丁寧に",
+    "shorter": "短く",
+    "softer": "柔らかく",
+    "concrete": "具体的に"
+  },
+  "category": {
+    "request": "依頼",
+    "reminder": "催促",
+    "apology": "謝罪",
+    "scheduling": "日程調整",
+    "inquiry": "問い合わせ",
+    "gratitude": "御礼",
+    "complaint": "クレーム",
+    "other": "その他"
+  },
+  "error": {
+    "empty_input": "本文を入力してください。",
+    "too_short": "本文は10文字以上で入力してください。",
+    "too_long": "本文が長すぎます。要点を圧縮して処理します。",
+    "ollama_down": "ollama が起動していません。起動してから再試行してください。",
+    "model_missing": "推奨モデルが導入されていません。モデルを導入してから再試行してください。",
+    "timeout": "生成がタイムアウトしました。もう一度お試しください。",
+    "structure_incomplete": "返信文の構成に一部欠落があります（警告付きで表示しています）。",
+    "generic": "エラーが発生しました。",
+    "retry": "再試行"
+  }
+}

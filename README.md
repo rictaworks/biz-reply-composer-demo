@@ -18,23 +18,36 @@
 - **認証は存在しない**（デモ制約）。ユーザー登録・パスワード・Googleログインなし。
 - 起動時に端末ローカルで **セッションID（UUID）** を自動生成し、以降の全データのオーナーキーとする。
 - 開発環境では環境判定によりセッションを自動初期化する（テスト容易化）。
-- 起動手順（開発）:
+- 起動手順（開発 / ローカルPC・実機ウィンドウ確認）:
 
   ```bash
   # 前提: ollama を起動し、推奨モデル（既定 Gemma 3 4B）を導入済みであること
   ollama serve
+  ollama pull gemma3:4b
   # アプリ（開発モード）
   npm install
   npm run tauri dev
   ```
 
-  > ※ソース未実装のため上記コマンドは想定値。実装後に確定する。
+- 検証だけを行う（Codespaces / GUIなしでも可）:
+
+  ```bash
+  npm run typecheck && npm test && npm run build      # フロント: 型・vitest・ビルド
+  cd src-tauri && cargo test -p app_core              # Rustコア（Tauri非依存）: ユニットテスト
+  ```
+
+  > ※ Tauri本体のフルビルド（`cargo build` 全体 / `npm run tauri build`）はCodespacesでは行わない（重い）。
+  > ロジックは `app_core` クレートで検証し、TauriビルドはローカルPC・GitHub Actionsで実施する。
+
+  > 環境分担: **Codespaces** = コード記述・フロント確認・Rustチェック・ビルド／
+  > **ローカルPC** = Tauri ウィンドウの実機確認／
+  > **GitHub Actions** = Windows/macOS/Linux の配布用ビルド（`.github/workflows/release.yml`）。
 
 ---
 
 ## ページ一覧（＝アプリ画面一覧）
 
-Webページ/URLは持たない。以下はアプリ内画面（ルート）。**現時点は仕様上の予定**。
+Webページ/URLは持たない。以下はアプリ内画面（ハッシュルート）。**骨組み実装済み**（`src/pages/`）。
 
 | 画面名 | ルート（想定） | 概要 |
 |---|---|---|
@@ -47,7 +60,7 @@ Webページ/URLは持たない。以下はアプリ内画面（ルート）。*
 
 ## API一覧（＝Tauriコマンド一覧）
 
-REST エンドポイントは持たない。Rustコア（Tauri）が公開する **`invoke` コマンド**。**現時点は仕様上の予定**（`biz-reply-composer-demo_instruction.md` のクラス図・中核関数に基づく）。
+REST エンドポイントは持たない。Rustコア（Tauri）が公開する **`invoke` コマンド**。**骨組み実装済み**（`src-tauri/src/commands.rs`）。
 
 | タイトル | コマンド（エンドポイント相当） | 概要 |
 |---|---|---|

@@ -1,0 +1,73 @@
+name: CI
+
+# push / PR で フロント（vitest・型・ビルド）と Rust（cargo test）を検証する。
+# Codespaces と同じ検証をCIでも回す（実機ウィンドウ表示は対象外）。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: フロント（型・テスト・ビルド）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: 型チェック
+        run: npm run typecheck
+      - name: テスト（vitest）
+        run: npm test
+      - name: フロントビルド
+        run: npm run build
+
+  core:
+    name: Rust core（Tauri非依存・軽量テスト）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      # coreクレートはTauri非依存のためシステム依存もwebkitも不要（Codespacesと同じ軽量経路）。
+      - name: cargo test -p app_core
+        working-directory: src-tauri
+        run: cargo test -p app_core
+
+  tauri-check:
+    name: Tauri アプリ（コンパイル確認のみ）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tauri Linux 依存を導入
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev \
+            libsoup-3.0-dev libjavascriptcoregtk-4.1-dev librsvg2-dev \
+            libayatana-appindicator3-dev
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+      - name: フロントビルド（generate_context! に dist が必要）
+        run: |
+          npm ci
+          npm run build
+      - name: cargo check（アプリクレートの配線を検証）
+        working-directory: src-tauri
+        run: cargo check -p biz-reply-composer-demo

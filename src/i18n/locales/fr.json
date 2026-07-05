@@ -1,0 +1,97 @@
+{
+  "app": {
+    "name": "Compositeur de réponses professionnelles",
+    "tagline": "Démo IA de bureau qui rédige des réponses d'e-mail adaptées au contexte"
+  },
+  "nav": {
+    "main": "Rédiger",
+    "history": "Historique",
+    "health": "Vérification",
+    "settings": "Paramètres"
+  },
+  "main": {
+    "title": "Rédiger une réponse",
+    "inputLabel": "Corps de l'e-mail reçu",
+    "inputPlaceholder": "Collez le corps de l'e-mail reçu (10 à 8 000 caractères)",
+    "charCount": "{{count}} caractères",
+    "policyLabel": "Politique de réponse",
+    "toneLabel": "Ton",
+    "extraLabel": "Instructions supplémentaires (facultatif)",
+    "extraPlaceholder": "ex. : je souhaite confirmer l'échéance",
+    "generate": "Générer la réponse",
+    "generating": "Génération…",
+    "resultTitle": "Brouillon de réponse généré",
+    "contextTitle": "Contexte extrait",
+    "copy": "Copier",
+    "copied": "Copié",
+    "refineTitle": "Ajustement en un clic"
+  },
+  "context": {
+    "category": "Catégorie",
+    "requests": "Demandes",
+    "deadline": "Échéance",
+    "sentiment": "Ton de l'expéditeur",
+    "none": "(aucun)"
+  },
+  "history": {
+    "title": "Historique de génération",
+    "empty": "Aucun historique de génération dans cette session pour le moment.",
+    "createdAt": "Créé le",
+    "copy": "Copier"
+  },
+  "health": {
+    "title": "Vérification de l'état",
+    "description": "Vérifie qu'ollama fonctionne et que le modèle recommandé est installé. Sinon, une erreur est renvoyée sans génération de secours.",
+    "check": "Revérifier",
+    "checking": "Vérification…",
+    "ollama": "ollama actif",
+    "model": "Modèle recommandé installé",
+    "ok": "OK",
+    "ng": "Erreur",
+    "unknown": "Inconnu"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "model": "Modèle utilisé",
+    "language": "Langue d'affichage",
+    "modelNote": "Téléchargez les modèles à l'avance en dehors de l'application (pas de téléchargement intégré)."
+  },
+  "policy": {
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "hold": "En attente",
+    "question": "Poser une question"
+  },
+  "tone": {
+    "formal": "Formel",
+    "standard": "Standard",
+    "casual": "Décontracté"
+  },
+  "refine": {
+    "politer": "Plus poli",
+    "shorter": "Plus court",
+    "softer": "Plus doux",
+    "concrete": "Plus concret"
+  },
+  "category": {
+    "request": "Demande",
+    "reminder": "Relance",
+    "apology": "Excuses",
+    "scheduling": "Planification",
+    "inquiry": "Renseignement",
+    "gratitude": "Remerciement",
+    "complaint": "Réclamation",
+    "other": "Autre"
+  },
+  "error": {
+    "empty_input": "Veuillez saisir le corps de l'e-mail.",
+    "too_short": "Le corps doit comporter au moins 10 caractères.",
+    "too_long": "Le corps est trop long ; il sera résumé avant traitement.",
+    "ollama_down": "ollama n'est pas en cours d'exécution. Démarrez-le et réessayez.",
+    "model_missing": "Le modèle recommandé n'est pas installé. Installez-le et réessayez.",
+    "timeout": "La génération a expiré. Veuillez réessayer.",
+    "structure_incomplete": "La structure de la réponse est partiellement incomplète (affichée avec un avertissement).",
+    "generic": "Une erreur s'est produite.",
+    "retry": "Réessayer"
+  }
+}
