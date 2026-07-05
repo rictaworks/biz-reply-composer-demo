@@ -88,7 +88,7 @@ pub fn generate_reply(
         input.extra.as_deref(),
         &lang,
     );
-    let mut draft = client.complete(&gen_prompt)?;
+    let mut draft = structure::clean_draft(&client.complete(&gen_prompt)?);
     repository::insert_log(conn, session_id, &gen_timer, "ok")?;
     gen_timer.log("ok");
 
@@ -96,7 +96,7 @@ pub fn generate_reply(
     let mut structure_valid = structure::validate_4parts(&draft);
     if !structure_valid {
         let regen_timer = PhaseTimer::start(Phase::Regenerate);
-        draft = client.complete(&gen_prompt)?;
+        draft = structure::clean_draft(&client.complete(&gen_prompt)?);
         structure_valid = structure::validate_4parts(&draft);
         let result = if structure_valid { "ok" } else { "structure_incomplete" };
         repository::insert_log(conn, session_id, &regen_timer, result)?;
@@ -153,7 +153,7 @@ pub fn refine_reply(
     let lang = validator::detect_language(&parent_body);
     let timer = PhaseTimer::start(Phase::Regenerate);
     let refine_prompt = prompt::build_refine(&parent_body, preset_code, &lang);
-    let draft = client.complete(&refine_prompt)?;
+    let draft = structure::clean_draft(&client.complete(&refine_prompt)?);
     repository::insert_log(conn, session_id, &timer, "ok")?;
     timer.log("ok");
 
