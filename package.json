@@ -1,7 +1,7 @@
 {
   "name": "biz-reply-composer-demo",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "文脈に合わせてビジネスメール返信文を生成するデスクトップAIデモ（Tauri + React/TS + SQLite + ローカルollama）",
   "scripts": {
