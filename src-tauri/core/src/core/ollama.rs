@@ -14,7 +14,7 @@ pub struct OllamaClient {
 impl OllamaClient {
     pub fn new(host: &str, model: &str, timeout_ms: u64) -> Self {
         let agent = ureq::AgentBuilder::new()
-            .timeout_connect(Duration::from_secs(3))
+            .timeout_connect(Duration::from_secs(30))
             .timeout(Duration::from_millis(timeout_ms))
             .build();
         OllamaClient {
