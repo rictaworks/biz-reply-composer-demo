@@ -24,7 +24,8 @@
     "contextTitle": "Contexte extrait",
     "copy": "Copier",
     "copied": "Copié",
-    "refineTitle": "Ajustement en un clic"
+    "refineTitle": "Ajustement en un clic",
+    "modelLoading": "Chargement du modèle… (cela peut prendre du temps la première fois)"
   },
   "context": {
     "category": "Catégorie",
@@ -46,6 +47,7 @@
     "checking": "Vérification…",
     "ollama": "ollama actif",
     "model": "Modèle recommandé installé",
+    "modelLoaded": "Modèle chargé",
     "ok": "OK",
     "ng": "Erreur",
     "unknown": "Inconnu"

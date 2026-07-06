@@ -24,7 +24,8 @@
     "contextTitle": "Contexto extraído",
     "copy": "Copiar",
     "copied": "Copiado",
-    "refineTitle": "Ajuste con un toque"
+    "refineTitle": "Ajuste con un toque",
+    "modelLoading": "Cargando el modelo… (puede tardar la primera vez)"
   },
   "context": {
     "category": "Categoría",
@@ -46,6 +47,7 @@
     "checking": "Comprobando…",
     "ollama": "ollama en ejecución",
     "model": "Modelo recomendado instalado",
+    "modelLoaded": "Modelo cargado",
     "ok": "Correcto",
     "ng": "Error",
     "unknown": "Sin comprobar"

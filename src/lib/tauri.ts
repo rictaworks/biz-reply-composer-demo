@@ -36,6 +36,7 @@ async function call<T>(command: string, args?: Record<string, unknown>): Promise
 export const api = {
   getMasters: () => call<Masters>("get_masters"),
   healthCheck: () => call<HealthStatus>("health_check"),
+  warmUpModel: () => call<void>("warm_up_model"),
   generateReply: (input: GenerateReplyInput) =>
     call<GeneratedReply>("generate_reply", { input }),
   refineReply: (parentReplyId: number, preset: RefineCode) =>

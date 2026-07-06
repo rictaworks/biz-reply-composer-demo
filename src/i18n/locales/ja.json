@@ -24,7 +24,8 @@
     "contextTitle": "抽出された文脈",
     "copy": "コピー",
     "copied": "コピーしました",
-    "refineTitle": "ワンタップ微調整"
+    "refineTitle": "ワンタップ微調整",
+    "modelLoading": "モデルを読み込んでいます…（初回は時間がかかる場合があります）"
   },
   "context": {
     "category": "用件カテゴリ",
@@ -46,6 +47,7 @@
     "checking": "確認中…",
     "ollama": "ollama 稼働",
     "model": "推奨モデル導入",
+    "modelLoaded": "モデル読み込み済み",
     "ok": "正常",
     "ng": "異常",
     "unknown": "未確認"

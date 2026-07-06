@@ -59,6 +59,42 @@ impl OllamaClient {
         Ok(installed)
     }
 
+    /// モデルが現在メモリに読み込み済み（ウォーム）か（/api/ps）。
+    /// model_installed（ディスク導入済み）とは別軸: 導入済みでも未読み込みなら false。
+    pub fn model_loaded(&self) -> AppResult<bool> {
+        let resp = self
+            .agent
+            .get(&format!("{}/api/ps", self.host))
+            .call()
+            .map_err(map_transport)?;
+        let json: serde_json::Value = resp.into_json().map_err(|e| AppError::Generic(e.to_string()))?;
+        let loaded = json
+            .get("models")
+            .and_then(|m| m.as_array())
+            .map(|arr| {
+                arr.iter().any(|m| {
+                    m.get("name")
+                        .and_then(|n| n.as_str())
+                        .map(|name| name == self.model || name.starts_with(&format!("{}:", self.model)) || name.split(':').next() == Some(&self.model))
+                        .unwrap_or(false)
+                })
+            })
+            .unwrap_or(false);
+        Ok(loaded)
+    }
+
+    /// モデルをメモリへ事前読み込みする（生成トークンなし）。
+    /// promptキーを省略した /api/generate は、ollama側でロードのみ行い即座に応答する
+    /// （公式に用意されているウォームアップ手段。生成結果は使わない）。
+    pub fn warm_up(&self) -> AppResult<()> {
+        let body = serde_json::json!({ "model": self.model });
+        self.agent
+            .post(&format!("{}/api/generate", self.host))
+            .send_json(body)
+            .map_err(map_transport)?;
+        Ok(())
+    }
+
     /// プロンプトを送って生成テキストを得る（stream=false / タイムアウトは Agent 設定）。
     pub fn complete(&self, prompt: &str) -> AppResult<String> {
         let body = serde_json::json!({

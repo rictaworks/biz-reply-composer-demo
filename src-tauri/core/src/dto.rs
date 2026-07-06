@@ -69,6 +69,7 @@ pub struct GeneratedReply {
 pub struct HealthStatus {
     pub ollama_running: bool,
     pub model_installed: bool,
+    pub model_loaded: bool,
     pub model: String,
     pub checked_at: String,
 }

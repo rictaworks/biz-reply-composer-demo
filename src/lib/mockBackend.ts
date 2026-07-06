@@ -99,9 +99,13 @@ export const mockBackend = {
     return {
       ollamaRunning: true,
       modelInstalled: true,
+      modelLoaded: true,
       model: "gemma3:1b",
       checkedAt: DEMO_TIMESTAMP,
     };
+  },
+  warm_up_model(): void {
+    // モックでは即ロード済み扱いのため何もしない。
   },
   generate_reply(input: GenerateReplyInput): GeneratedReply {
     return demoDraft(input);

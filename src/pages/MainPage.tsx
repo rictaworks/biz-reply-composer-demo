@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { api } from "@/lib/tauri";
@@ -9,10 +9,14 @@ import { Notice } from "@/components/Notice";
 import type {
   AppErrorCode,
   GeneratedReply,
+  HealthStatus,
   PolicyCode,
   RefineCode,
   ToneCode,
 } from "@/types";
+
+/** モデルウォームアップ状態のポーリング間隔（ms）。 */
+const MODEL_STATUS_POLL_MS = 1500;
 
 /** Rust側のエラー文字列を i18n コードへ写像する（未知は generic）。 */
 function toErrorCode(error: unknown): AppErrorCode {
@@ -42,9 +46,56 @@ export function MainPage() {
   const [reply, setReply] = useState<GeneratedReply | null>(null);
   const [errorCode, setErrorCode] = useState<AppErrorCode | null>(null);
   const [busy, setBusy] = useState(false);
+  const [health, setHealth] = useState<HealthStatus | null>(null);
+  const warmUpTriggered = useRef(false);
 
   const charCount = useMemo(() => [...body].length, [body]);
   const belowMin = charCount > 0 && charCount < INPUT_LIMITS.minChars;
+
+  // モデルが読み込み（ウォーム）済みになるまで生成ボタンを無効化する。
+  // 未読み込みのままだと実際の生成でコールドロード分の遅延・タイムアウトを招くため。
+  useEffect(() => {
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    async function poll() {
+      try {
+        const status = await api.healthCheck();
+        if (cancelled) return;
+        setHealth(status);
+
+        if (
+          status.ollamaRunning &&
+          status.modelInstalled &&
+          !status.modelLoaded &&
+          !warmUpTriggered.current
+        ) {
+          warmUpTriggered.current = true;
+          void api.warmUpModel().catch(() => {
+            // 失敗してもポーリングで状態を再確認し続ける。
+            warmUpTriggered.current = false;
+          });
+        }
+
+        if (!status.modelLoaded && !cancelled) {
+          timer = setTimeout(() => void poll(), MODEL_STATUS_POLL_MS);
+        }
+      } catch {
+        if (!cancelled) {
+          timer = setTimeout(() => void poll(), MODEL_STATUS_POLL_MS);
+        }
+      }
+    }
+
+    void poll();
+
+    return () => {
+      cancelled = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
+
+  const modelReady = health?.modelLoaded ?? false;
 
   async function handleGenerate() {
     setErrorCode(null);
@@ -141,12 +192,23 @@ export function MainPage() {
       <button
         type="button"
         className="btn btn-primary"
-        disabled={busy || charCount < INPUT_LIMITS.minChars}
+        disabled={busy || charCount < INPUT_LIMITS.minChars || !modelReady}
         onClick={handleGenerate}
       >
         <FontAwesomeIcon icon="pen-to-square" fixedWidth />
         <span>{busy ? t("main.generating") : t("main.generate")}</span>
       </button>
+
+      {health && !health.ollamaRunning ? (
+        <Notice kind="warning" errorCode="ollama_down" />
+      ) : health && health.ollamaRunning && !health.modelInstalled ? (
+        <Notice kind="warning" errorCode="model_missing" />
+      ) : health && !health.modelLoaded ? (
+        <div className="notice notice-warning" role="status">
+          <FontAwesomeIcon icon="spinner" fixedWidth spin />
+          <span className="notice-message">{t("main.modelLoading")}</span>
+        </div>
+      ) : null}
 
       {errorCode ? (
         <Notice errorCode={errorCode} onRetry={handleGenerate} />
