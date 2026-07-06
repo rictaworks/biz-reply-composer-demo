@@ -84,12 +84,29 @@ fn map_transport(err: ureq::Error) -> AppError {
     match err {
         ureq::Error::Status(code, _) => AppError::Generic(format!("ollama HTTP {code}")),
         ureq::Error::Transport(t) => {
-            let msg = t.to_string().to_lowercase();
-            if msg.contains("timed out") || msg.contains("timeout") {
+            if is_timeout_error(&t) {
                 AppError::Timeout
             } else {
                 AppError::OllamaDown
             }
         }
     }
+}
+
+/// タイムアウト判定（ロケール非依存）。
+/// 注意: Windowsの日本語ロケール環境では、OSレベルのソケットタイムアウトエラー
+/// （os error 10060 / WSAETIMEDOUT）のメッセージが日本語で表示されるため、
+/// 英語文字列（"timed out" 等）の部分一致では検出できない。
+/// std::io::ErrorKind::TimedOut という言語非依存の列挙型比較で判定する。
+fn is_timeout_error(err: &(dyn std::error::Error + 'static)) -> bool {
+    let mut cur: Option<&(dyn std::error::Error + 'static)> = Some(err);
+    while let Some(e) = cur {
+        if let Some(io_err) = e.downcast_ref::<std::io::Error>() {
+            if io_err.kind() == std::io::ErrorKind::TimedOut {
+                return true;
+            }
+        }
+        cur = e.source();
+    }
+    false
 }
