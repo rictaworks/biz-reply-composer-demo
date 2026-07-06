@@ -1,6 +1,6 @@
 [package]
 name = "biz-reply-composer-demo"
-version = "0.1.2"
+version = "0.1.3"
 description = "文脈に合わせてビジネスメール返信文を生成するデスクトップAIデモ"
 authors = ["biz-reply-composer-demo"]
 edition = "2021"
