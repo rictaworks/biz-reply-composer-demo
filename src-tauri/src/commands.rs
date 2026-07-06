@@ -31,6 +31,12 @@ pub fn health_check(state: State<AppState>) -> AppResult<HealthStatus> {
     Ok(generator::health(&state.settings))
 }
 
+/// モデルのウォームアップ（生成ボタン活性化用）。読み込み済みでも再度呼ぶだけで無害。
+#[tauri::command]
+pub fn warm_up_model(state: State<AppState>) -> AppResult<()> {
+    generator::warm_up_model(&state.settings)
+}
+
 #[tauri::command]
 pub fn generate_reply(
     state: State<AppState>,

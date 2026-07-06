@@ -28,6 +28,7 @@ export function HealthPage() {
     ? [
         { labelKey: "health.ollama", ok: status.ollamaRunning },
         { labelKey: "health.model", ok: status.modelInstalled },
+        { labelKey: "health.modelLoaded", ok: status.modelLoaded },
       ]
     : [];
 

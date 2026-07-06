@@ -44,6 +44,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::get_masters,
             commands::health_check,
+            commands::warm_up_model,
             commands::generate_reply,
             commands::refine_reply,
             commands::list_history,

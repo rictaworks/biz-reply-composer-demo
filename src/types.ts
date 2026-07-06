@@ -66,6 +66,7 @@ export interface GeneratedReply {
 export interface HealthStatus {
   ollamaRunning: boolean;
   modelInstalled: boolean;
+  modelLoaded: boolean;
   model: string;
   checkedAt: string;
 }

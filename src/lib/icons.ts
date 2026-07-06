@@ -12,6 +12,7 @@ import {
   faCircleCheck,
   faCircleXmark,
   faLanguage,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -26,4 +27,5 @@ library.add(
   faCircleCheck,
   faCircleXmark,
   faLanguage,
+  faSpinner,
 );

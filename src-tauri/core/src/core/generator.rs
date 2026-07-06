@@ -12,7 +12,7 @@ use crate::logging::{Phase, PhaseTimer};
 use crate::time::now_jst_iso;
 use rusqlite::Connection;
 
-/// ヘルスチェック（§1.4 F9 / §1.5 手順2）。稼働とモデル導入を確認。
+/// ヘルスチェック（§1.4 F9 / §1.5 手順2）。稼働・モデル導入・読み込み状態を確認。
 pub fn health(settings: &Settings) -> HealthStatus {
     let client = OllamaClient::new(
         &settings.ollama_host,
@@ -21,12 +21,25 @@ pub fn health(settings: &Settings) -> HealthStatus {
     );
     let running = client.is_running();
     let model_installed = running && client.model_installed().unwrap_or(false);
+    let model_loaded = model_installed && client.model_loaded().unwrap_or(false);
     HealthStatus {
         ollama_running: running,
         model_installed,
+        model_loaded,
         model: settings.default_model.clone(),
         checked_at: now_jst_iso(),
     }
+}
+
+/// モデルをメモリへ事前読み込みする（UI側で生成ボタンを解放するためのウォームアップ）。
+/// 読み込みには（RAM制約下で）20秒以上かかることがあるため、呼び出し元は非同期に扱うこと。
+pub fn warm_up_model(settings: &Settings) -> AppResult<()> {
+    let client = OllamaClient::new(
+        &settings.ollama_host,
+        &settings.default_model,
+        settings.generation_timeout_ms,
+    );
+    client.warm_up()
 }
 
 /// ヘルスチェックに不合格ならフォールバックせずエラーを返す。

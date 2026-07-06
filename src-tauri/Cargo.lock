@@ -151,7 +151,7 @@ dependencies = [
 
 [[package]]
 name = "biz-reply-composer-demo"
-version = "0.1.0"
+version = "0.1.2"
 dependencies = [
  "app_core",
  "rusqlite",

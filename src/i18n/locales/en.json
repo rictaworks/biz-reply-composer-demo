@@ -24,7 +24,8 @@
     "contextTitle": "Extracted context",
     "copy": "Copy",
     "copied": "Copied",
-    "refineTitle": "One-tap refinement"
+    "refineTitle": "One-tap refinement",
+    "modelLoading": "Loading model… (this may take a while on first run)"
   },
   "context": {
     "category": "Category",
@@ -46,6 +47,7 @@
     "checking": "Checking…",
     "ollama": "ollama running",
     "model": "Recommended model installed",
+    "modelLoaded": "Model loaded",
     "ok": "OK",
     "ng": "Error",
     "unknown": "Unknown"
